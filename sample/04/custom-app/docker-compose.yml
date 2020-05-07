@@ -1,0 +1,28 @@
+version: '3'
+
+services: 
+
+  web:
+    build: .
+    image: php-apl:0.1
+    container_name: my-custom-php1
+    restart: always
+    ports: 
+      - 8082:80
+    networks:
+      - apl-net
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=mysql57
+
+  mysql:
+    image: mysql:5.7
+    container_name: my-mysql1
+    restart: always
+    networks:
+      - apl-net
+    environment: 
+      - MYSQL_ROOT_PASSWORD=mysql57
+
+networks: 
+  apl-net:

@@ -1,0 +1,36 @@
+version: '3'
+
+services: 
+
+  wordpress:
+    depends_on:
+      - mysql
+    image: wordpress
+    container_name: my-wordpress1
+    restart: always
+    ports: 
+      - 8888:80
+    networks:
+      - web
+    environment:
+      WORDPRESS_DB_PASSWORD: my-secret-pw
+    volumes:
+      - workspace:/workspace
+
+  mysql:
+    image: mysql:5.7
+    container_name: my-mysql1
+    restart: always
+    networks:
+      - web
+    environment: 
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+networks:
+  web:
+
+volumes:
+  mysql-data:
+  workspace:
